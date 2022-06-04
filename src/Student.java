@@ -61,9 +61,4 @@ public class Student {
         return this.batch;
     }
 
-    public static void main(String[] args) {
-        Student me = new Student("Wasif Ali", "FA21-BCS-035", "BCS-2A" ,"Fall-21", 3.73, 3.84, "0309-5348658", "waxif.alee1@gmail.com");
-        System.out.println(me.getEmail());
-    }
-
 }

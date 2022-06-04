@@ -18,6 +18,11 @@ public class Main {
         System.out.flush();
     }
 
+    private static void studentLogin(String regNo, String password){
+        // Access the private txt file with the regNo as file name and return the data from it in an array
+        // Then pass it down to the student object
+    }
+
     public static void main(String[] args) {
 
         // Welcoming the user
@@ -30,29 +35,25 @@ public class Main {
 
         // Opening the relative Portal
 
-        while(resignation > 4 && resignation < 0) {
+        while(resignation < 4 && resignation > 0) {
             // Asking for the resignation
             System.out.print("> ");
             resignation = input.nextByte();
-            switch (resignation) {
 
-                case 1:
-                    System.out.println("Student");
-                    break;
-                case 2:
-                    System.out.println("Teacher");
-                    break;
-                case 3:
-                    System.out.println("Admin");
-                    break;
-                case 0:
-                    System.out.println("Goodbye!");
-                    break;
-                default:
-                    System.out.println("Please Select a valid command");
-                    break;
+            // For Students portal
+            if (resignation == 1){
+                clearScreen();
+                System.out.println("+--------------------------------------+");
+                System.out.println("+-----WELCOME TO THE STUDENT PORTAL----+");
+                System.out.println("+--------------------------------------+\n");
+
+                System.out.print("Enter your registration number: ");
+                String regNo = input.nextLine();
+                System.out.println("\nEnter your password: ");
+                String password = input.nextLine();
 
             }
+
         }
 
 
