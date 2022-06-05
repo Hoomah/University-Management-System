@@ -5,7 +5,7 @@ public class Main {
     private static void welcome(){
         System.out.println("|---------------------------------------------------------------|");
         System.out.println("|--------------WELCOME UNIVERSITY MANAGEMENT SYSTEM-------------|");
-        System.out.println("|------------ Developed By Humma Laila and Wasif Ali -----------|");
+        System.out.println("|------------ Developed By Laila and Wasif Ali -----------|");
         System.out.println("|---------------------------------------------------------------|\n");
 
 
