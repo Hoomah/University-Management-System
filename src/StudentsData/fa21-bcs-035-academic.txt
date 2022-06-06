@@ -1,0 +1,5 @@
+programming fundamentals : 89
+applied physics for engineers: 85
+discrete structures: 92
+report writing skills: 84
+professional practices for IT: 88

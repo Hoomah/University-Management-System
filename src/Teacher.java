@@ -1,28 +1,23 @@
-import javax.security.auth.Subject;
 
 public class Teacher {
         private String teacherName;
         private String phoneNumber;
         private String email;
-        private Double Salary;
+        private double salary;
         private String subject ;
-        private Double advance ;
+        private double advance ;
 
-    public Teacher (String teacher_name, String phone_number , String Email , Double salary , String subject , Double advance ){
+    public Teacher (String teacher_name, String phone_number , String _email , double _salary , String _subject , double _advance ){
 
         teacherName = teacher_name;
         phoneNumber = phone_number;
-        email = Email;
-        String Subject = subject;
-        advance = advance ;
+        email = _email;
+        subject = _subject;
+        salary = _salary;
+        advance = _advance;
 
     }
-    public void setEmail(String email) {
-        if ((this.email.substring(this.email.length() - 4, this.email.length()).equals(".com")))
-            this.email = email;
-        else
-            System.out.println("Email must be valid.");
-    }
+    
     public String getEmail() {
         return this.email;
     }
