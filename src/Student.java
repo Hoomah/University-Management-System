@@ -100,8 +100,15 @@ public class Student {
 
                 System.out.print("\nEnter any number to continue...");
                 input.nextByte();
-
                 
+
+
+            }
+
+            else if(command == 2) {
+                System.out.println("+-----------------------------------+");
+                System.out.println("+---- YOUR ACADEMIC INFORMATION ----+");
+                System.out.println("+-----------------------------------+\n");
 
             }
 
