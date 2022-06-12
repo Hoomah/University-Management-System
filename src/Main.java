@@ -56,7 +56,7 @@ public class Main {
             // Array to store the data in program from file
             String[] studentData = new String[10];
 
-            // Opening the relative file
+            // Opening the relative file for personal data
             try {
                 File studentFile = new File("src/StudentsData/"+ regNo +"-personal.txt");
                 Scanner studentDataReader = new Scanner(studentFile);
@@ -88,10 +88,36 @@ public class Main {
             7 -> section
             8 -> Father Name
             */
+
+            // Opening the relative file for academic data
+
+            String[] academicData = new String[5];// Array for the data of academic records
+
+            // fetching the data from the file
+
+
+            try {
+
+                File academicDataFile = new File("src/StudentsData/"+ regNo +"-academic.txt");
+                try (Scanner academic_fileReader = new Scanner(academicDataFile)) {
+                    String currentLine;
+                    int counter = 0;
+
+                    while(academic_fileReader.hasNextLine()){
+                        currentLine = academic_fileReader.nextLine();
+                        academicData[counter] = currentLine;
+                        counter ++;
+                    }
+                }
+                
+            } catch (FileNotFoundException e) {
+                System.out.println("No academic record found.");
+            }
+
            
             Student student = new Student(studentData[1], studentData[8],
             regNo, studentData[7], studentData[2], studentData[3],
-            studentData[4], studentData[5], studentData[6]);
+            studentData[4], studentData[5], studentData[6], academicData);
 
 
             // Authenticating the login session

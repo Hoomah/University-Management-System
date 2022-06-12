@@ -1,3 +1,6 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Student {
@@ -10,8 +13,11 @@ public class Student {
     private String email;
     private String section;
     private String fatherName;
+    private String[] academicRecord;
 
-    public Student(String student_name, String father_name, String reg_no , String _section , String _batch , String c_gpa, String s_gpa , String phone_number , String _email  ){
+    public Student(String student_name, String father_name, String reg_no ,
+                String _section , String _batch , String c_gpa, String s_gpa ,
+                 String phone_number , String _email, String[] academic_record  ){
 
             studentName = student_name;
             section = _section;
@@ -22,6 +28,7 @@ public class Student {
             phoneNumber = phone_number;
             email = _email;
             fatherName = father_name;
+            academicRecord = academic_record;
 
     }
 
@@ -61,6 +68,10 @@ public class Student {
 
     public String getBatch(){
         return this.batch;
+    }
+
+    public String[] getAcademicRecord(){
+        return this.academicRecord;
     }
 
 
@@ -109,6 +120,46 @@ public class Student {
                 System.out.println("+-----------------------------------+");
                 System.out.println("+---- YOUR ACADEMIC INFORMATION ----+");
                 System.out.println("+-----------------------------------+\n");
+
+                for (String record : academicRecord) {
+                    System.out.println(record);
+                }
+                System.out.println("Enter any number to continue...");
+                input.nextByte();
+
+            }
+
+            else if (command == 3) {
+                
+                // Writing to the complains file
+
+                System.out.println("Enter a subject for the message: ");
+                String subject = input.nextLine();
+                System.out.println("\nDescribe the issue: ");
+                String message = input.nextLine();
+
+                // Open the complains file and write to it
+
+                try (FileWriter complainWriter = new FileWriter("src/Complaints.txt")) {
+
+                    complainWriter.write("+--------------------------------------+");
+                    complainWriter.write("\n+----- FROM: "+this.getRegNo().toUpperCase()+"-----+");
+                    complainWriter.write("\n+----- SUBJECT: "+subject+"---+");
+                    complainWriter.write("\n+--------------------------------------+\n");
+                    complainWriter.write(message);
+                    complainWriter.write("\n+--------------------------------------+");
+                    complainWriter.write("\nDated: "+LocalDate.now());
+                    complainWriter.close();
+                    System.out.println("\nComplain was sent succesfully to the authorities.");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
             }
 
