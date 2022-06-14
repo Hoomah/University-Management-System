@@ -132,11 +132,10 @@ public class Student {
             else if (command == 3) {
                 
                 // Writing to the complains file
-
-                System.out.println("Enter a subject for the message: ");
-                String subject = input.nextLine();
-                System.out.println("\nDescribe the issue: ");
-                String message = input.nextLine();
+                input.nextLine();
+                String message;
+                System.out.print("Describe the issue: ");
+                message = input.nextLine();
 
                 // Open the complains file and write to it
 
@@ -144,7 +143,7 @@ public class Student {
 
                     complainWriter.write("+--------------------------------------+");
                     complainWriter.write("\n+----- FROM: "+this.getRegNo().toUpperCase()+"-----+");
-                    complainWriter.write("\n+----- SUBJECT: "+subject+"---+");
+                    complainWriter.write("\n+-----SUBJECT: STUDENT's COMPLAINT---+");
                     complainWriter.write("\n+--------------------------------------+\n");
                     complainWriter.write(message);
                     complainWriter.write("\n+--------------------------------------+");

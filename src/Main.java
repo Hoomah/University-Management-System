@@ -122,12 +122,14 @@ public class Main {
 
             // Authenticating the login session
 
-            byte incc_pas_cnt = 0;
-            while(incc_pas_cnt < 3) {
+            int wrng_pswd_lmt = 4;
+            Boolean login_successful = false;
+
+            while(true) { // Taking passwords as long as the user
+                        // does not enter the right password or exceeds the limit
 
                 System.out.print("Enter your password: ");
                 String stdPassword = input.next();
-                incc_pas_cnt ++;
 
                 if ((studentData[0].equals(stdPassword))) {
 
@@ -145,11 +147,22 @@ public class Main {
 
                     Thread.sleep(1000);
                     clearScreen();
+                    login_successful = true;
 
                     break;
 
-                } else {
+                } 
+
+                else if (wrng_pswd_lmt <= 0){
+                    clearScreen();
+                    System.out.println("Password attempts limit exceeded!");
+                    break;
+                }
+                
+                else 
+                {
                     System.out.println("Incorrect Password! Try again. \n");
+                    wrng_pswd_lmt --;
                 }
             
 
@@ -158,7 +171,10 @@ public class Main {
 
             // starting the main section
 
-            student.start();
+            if(login_successful)
+                student.start();
+            else
+                System.out.println("Could not start the user session!");
 
         }
 
