@@ -12,7 +12,11 @@ public class Main {
 
 
         System.out.println("Select Your Designation");
-        System.out.println("1. Student\n"+ "2. Teacher\n"+ "3. Administration\n" + "0. Quit");
+        System.out.println("""
+                1. Student
+                2. Teacher
+                3. Administration
+                0. Quit""");
     }
 
     public static void clearScreen() {
@@ -26,7 +30,7 @@ public class Main {
         // Welcoming the user
         clearScreen();
         welcome();
-        byte resignation = 1;
+        byte resignation;
 
         // Taking input for the relative portal
         Scanner input = new Scanner(System.in);
@@ -122,14 +126,15 @@ public class Main {
 
             // Authenticating the login session
 
-            int wrng_pswd_lmt = 4;
-            Boolean login_successful = false;
+            int wrng_pswd_lmt = 5;
+            boolean login_successful = false;
 
             while(true) { // Taking passwords as long as the user
                         // does not enter the right password or exceeds the limit
 
                 System.out.print("Enter your password: ");
                 String stdPassword = input.next();
+                wrng_pswd_lmt --;
 
                 if ((studentData[0].equals(stdPassword))) {
 
@@ -162,7 +167,7 @@ public class Main {
                 else 
                 {
                     System.out.println("Incorrect Password! Try again. \n");
-                    wrng_pswd_lmt --;
+                    System.out.println("Remaining tries: "+wrng_pswd_lmt);
                 }
             
 
@@ -176,6 +181,15 @@ public class Main {
             else
                 System.out.println("Could not start the user session!");
 
+        }
+
+        // Teachers
+
+        else if (resignation == 2){
+            Teacher teacher = new Teacher("Taimoor Sajjad", "male",
+                    35, 150000, "taimoorsajjad@ciitwah.com",
+                    "Programming Fundamentals");
+            teacher.start();
         }
 
         else if(resignation == 0)
