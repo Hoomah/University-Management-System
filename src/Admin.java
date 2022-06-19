@@ -268,6 +268,75 @@ public class Admin {
 
                 }
 
+                else if (operation == 5){
+                    // Get Employee's name
+
+                    System.out.print("Enter the employee's name: ");
+                    String emp_name = input.nextLine();
+
+                    // Ask for confirmination
+
+                    System.out.print("Are you sure you want to delete this record?[yes/no]: ");
+                    boolean confirmDelete = input.nextLine().toLowerCase().equals("yes") ? true : false;
+
+                    // Delete the file
+
+                    if(confirmDelete){
+                        File emp_file = new File("src/"+emp_name+".txt");
+
+
+                        if(emp_file.delete())
+                            System.out.println("Personal record of "+emp_file.getName()+ " was delete successfully");
+                        else
+                            System.out.println("Could not delete the personal record!");
+                        
+                        input.nextLine();
+                    } else {
+                        System.out.println("The cancellation process was terminated!");
+                        input.nextLine();
+                    }
+
+                   
+                }
+
+                else if (operation == 6){
+                    // Get the student's regisration number
+
+                    System.out.print("Enter the student's registration #: ");
+                    String std_reg_num = input.nextLine();
+
+                    // Ask for confirmination
+
+                    System.out.print("Are you sure you want to delete this record?[yes/no]: ");
+                    boolean confirmDelete = input.nextLine().toLowerCase().equals("yes") ? true : false;
+
+                    // Delete the files both academic and personal
+
+                        if(confirmDelete){
+                            File acad_file = new File("src/StudentsData/"+std_reg_num+"-academic.txt");
+                            File personal_file = new File("src/StudentsData/"+std_reg_num+"-personal.txt");
+    
+                            if(acad_file.delete()){
+                                System.out.println("Academic Record of"+ acad_file.getName() + " was deleted sucessfully");
+                            } else {
+                                System.out.println("Could not delete the academic record!");
+                            }
+    
+                            if(personal_file.delete())
+                                System.out.println("Personal record of "+personal_file.getName()+ " was delete successfully");
+                            else
+                                System.out.println("Could not delete the personal record!");
+                            
+                            input.nextLine();
+                        } else {
+                            System.out.println("The process of deletion was cancelled!");
+                            input.nextLine();
+
+                        }
+
+                        
+                    }
+                
                 else if(operation == 0){
                     break;
                 }
