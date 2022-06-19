@@ -32,176 +32,247 @@ public class Main {
         welcome();
         byte resignation;
 
-        // Taking input for the relative portal
-        Scanner input = new Scanner(System.in);
+        try (// Taking input for the relative portal
+        Scanner input = new Scanner(System.in)) {
+            // Asking for the resignation
+            System.out.print("> ");
+            resignation = input.nextByte();
 
-        // Opening the relative Portal
+            // Opening the relative Portals
+            
+            // For Students portal
 
-        // Asking for the resignation
-        System.out.print("> ");
-        resignation = input.nextByte();
+            if (resignation == 1)
+            {
 
-        
-        
-        // For Students portal
+                clearScreen();
+                System.out.println("+--------------------------------------+");
+                System.out.println("+-----WELCOME TO THE STUDENT PORTAL----+");
+                System.out.println("+--------------------------------------+\n");
 
-        if (resignation == 1)
-        {
+                // Getting the student's data
+                System.out.print("Enter your registration number: ");
+                String regNo = input.next();
 
-            clearScreen();
-            System.out.println("+--------------------------------------+");
-            System.out.println("+-----WELCOME TO THE STUDENT PORTAL----+");
-            System.out.println("+--------------------------------------+\n");
+                // Array to store the data in program from file
+                String[] studentData = new String[10];
 
-            // Getting the student's data
-            System.out.print("Enter your registration number: ");
-            String regNo = input.next();
+                // Opening the relative file for personal data
+                try {
+                    File studentFile = new File("src/StudentsData/"+ regNo +"-personal.txt");
+                    Scanner studentDataReader = new Scanner(studentFile);
 
-            // Array to store the data in program from file
-            String[] studentData = new String[10];
+                    // Reading the lines one by one
+                    int counter = 0;
+                    while (studentDataReader.hasNextLine()) {
+                        String dataLine = studentDataReader.nextLine();
+                        studentData[counter] = dataLine;
+                        counter++;
+                    }
+                    // Closing the reader after the lines has ended
+                    studentDataReader.close();
 
-            // Opening the relative file for personal data
-            try {
-                File studentFile = new File("src/StudentsData/"+ regNo +"-personal.txt");
-                Scanner studentDataReader = new Scanner(studentFile);
-
-                // Reading the lines one by one
-                int counter = 0;
-                while (studentDataReader.hasNextLine()) {
-                    String dataLine = studentDataReader.nextLine();
-                    studentData[counter] = dataLine;
-                    counter++;
+                } catch (FileNotFoundException e) {
+                    System.out.println("Student Not Found! Try again!");
+                    System.exit(1);
                 }
-                // Closing the reader after the lines has ended
-                studentDataReader.close();
 
-            } catch (FileNotFoundException e) {
-                System.out.println("Student Not Found! Try again!");
-                System.exit(1);
+
+                /* 
+                0 -> password
+                1 -> name
+                2 -> batch
+                3 -> cgpa
+                4 -> sgpa
+                5 -> phone number
+                6 -> email
+                7 -> section
+                8 -> Father Name
+                */
+
+                // Opening the relative file for academic data
+
+                String[] academicData = new String[5];// Array for the data of academic records
+
+                // fetching the data from the file
+
+
+                try {
+
+                    File academicDataFile = new File("src/StudentsData/"+ regNo +"-academic.txt");
+                    try (Scanner academic_fileReader = new Scanner(academicDataFile)) {
+                        String currentLine;
+                        int counter = 0;
+
+                        while(academic_fileReader.hasNextLine()){
+                            currentLine = academic_fileReader.nextLine();
+                            academicData[counter] = currentLine;
+                            counter ++;
+                        }
+                    }
+                    
+                } catch (FileNotFoundException e) {
+                    System.out.println("No academic record found.");
+                }
+
+               
+                Student student = new Student(studentData[1], studentData[8],
+                regNo, studentData[7], studentData[2], studentData[3],
+                studentData[4], studentData[5], studentData[6], academicData);
+
+
+                // Authenticating the login session
+
+                int wrng_pswd_lmt = 5;
+                boolean login_successful = false;
+
+                while(true) { // Taking passwords as long as the user
+                            // does not enter the right password or exceeds the limit
+
+                    System.out.print("Enter your password: ");
+                    String stdPassword = input.next();
+                    wrng_pswd_lmt --;
+
+                    if ((studentData[0].equals(stdPassword))) {
+
+                        clearScreen();
+
+                        System.out.print("Logging in");
+                        for (int i = 0; i < 4 ; i++) {
+                            Thread.sleep(60); // Adding a delaying effect
+                            System.out.print(".");
+                        }
+                        Thread.sleep(1500);
+                        System.out.println("\n+-------------------------------+");
+                        System.out.println("+----- Welcome "+student.getName()+" :)-----+");
+                        System.out.println("+-------------------------------+");
+
+                        Thread.sleep(1000);
+                        clearScreen();
+                        login_successful = true;
+
+                        break;
+
+                    } 
+
+                    else if (wrng_pswd_lmt <= 0){
+                        clearScreen();
+                        System.out.println("Password attempts limit exceeded!");
+                        break;
+                    }
+                    
+                    else 
+                    {
+                        System.out.println("Incorrect Password! Try again. \n");
+                        System.out.println("Remaining tries: "+wrng_pswd_lmt);
+                    }
+                
+
+                
+                }
+
+                // starting the main section
+
+                if(login_successful)
+                    student.start();
+                else
+                    System.out.println("Could not start the user session!");
+
             }
 
+            // Teachers
 
-            /* 
-            0 -> password
-            1 -> name
-            2 -> batch
-            3 -> cgpa
-            4 -> sgpa
-            5 -> phone number
-            6 -> email
-            7 -> section
-            8 -> Father Name
-            */
+            else if (resignation == 2){
+                String[] teacherData = new String[7];
 
-            // Opening the relative file for academic data
+                File teacherFile = new File("src/Taimoor.txt");
+                boolean teacherLogin = false;
+                try(Scanner teacherReader = new Scanner(teacherFile)){
 
-            String[] academicData = new String[5];// Array for the data of academic records
-
-            // fetching the data from the file
-
-
-            try {
-
-                File academicDataFile = new File("src/StudentsData/"+ regNo +"-academic.txt");
-                try (Scanner academic_fileReader = new Scanner(academicDataFile)) {
-                    String currentLine;
                     int counter = 0;
-
-                    while(academic_fileReader.hasNextLine()){
-                        currentLine = academic_fileReader.nextLine();
-                        academicData[counter] = currentLine;
+                    while(teacherReader.hasNextLine()){
+                        teacherData[counter] = teacherReader.nextLine();
                         counter ++;
                     }
+
+                    teacherReader.close();
+
+                } catch (FileNotFoundException f){
+                    System.out.println("Data Not Found!");
                 }
-                
-            } catch (FileNotFoundException e) {
-                System.out.println("No academic record found.");
-            }
 
-           
-            Student student = new Student(studentData[1], studentData[8],
-            regNo, studentData[7], studentData[2], studentData[3],
-            studentData[4], studentData[5], studentData[6], academicData);
+                byte invld_pswd_counts = 5;
+                while(true){
+                    System.out.print("Enter your passcode: ");
+                    String password = input.nextLine();
+                    invld_pswd_counts --;
 
-
-            // Authenticating the login session
-
-            int wrng_pswd_lmt = 5;
-            boolean login_successful = false;
-
-            while(true) { // Taking passwords as long as the user
-                        // does not enter the right password or exceeds the limit
-
-                System.out.print("Enter your password: ");
-                String stdPassword = input.next();
-                wrng_pswd_lmt --;
-
-                if ((studentData[0].equals(stdPassword))) {
-
-                    clearScreen();
-
-                    System.out.print("Logging in");
-                    for (int i = 0; i < 4 ; i++) {
-                        Thread.sleep(60); // Adding a delaying effect
-                        System.out.print(".");
+                    if(password.equals(teacherData[0]) && invld_pswd_counts > 0 ){
+                        teacherLogin = true;
+                        break;
                     }
-                    Thread.sleep(1500);
-                    System.out.println("\n+-------------------------------+");
-                    System.out.println("+----- Welcome "+student.getName()+" :)-----+");
-                    System.out.println("+-------------------------------+");
 
-                    Thread.sleep(1000);
-                    clearScreen();
-                    login_successful = true;
+                    else if( invld_pswd_counts > 0 )
+                        System.out.println("Invald password. Try again.");
+                    else if (invld_pswd_counts <= 0){
+                        System.out.println("Too many wrong attempts!");
+                        break;
+                    }
 
-                    break;
-
-                } 
-
-                else if (wrng_pswd_lmt <= 0){
-                    clearScreen();
-                    System.out.println("Password attempts limit exceeded!");
-                    break;
+                    
                 }
+
+                /*
+                 * 0 -> passcode
+                 * 1 -> name
+                 * 2 -> gender
+                 * 3 -> age
+                 * 4 -> salary
+                 * 5 -> email
+                 * 6 -> subjects
+                 */
+
+                String teacherName = teacherData[1];
+                String teacherGender = teacherData[2].toLowerCase();
+                int teacherAge = Integer.parseInt(teacherData[3]);
+                int teacherSalary = Integer.parseInt(teacherData[4]);
+                String teacherEmail = teacherData[5];
+                String teacherSubject = teacherData[6];
+
+                if(teacherLogin){
+                    Teacher teacher = new Teacher(teacherName, teacherGender,
+                    teacherAge, teacherSalary, teacherEmail, teacherSubject);
+
+                    teacher.start();
+                }
+
+
                 
-                else 
-                {
-                    System.out.println("Incorrect Password! Try again. \n");
-                    System.out.println("Remaining tries: "+wrng_pswd_lmt);
-                }
+            }
             
-
-            
+            else if(resignation == 3){
+                input.nextLine();
+                System.out.print("Enter your name: ");
+                String adminName = input.nextLine();
+                System.out.print("Enter your passcode: ");
+                String adminPasscode = input.nextLine();
+                Admin admin = new Admin(adminName, adminPasscode);
+                admin.start();
+                
             }
 
-            // starting the main section
+            else if(resignation == 0) {
+                System.out.println("See you again!");
+            }
 
-            if(login_successful)
-                student.start();
-            else
-                System.out.println("Could not start the user session!");
-
+            else {
+                System.out.println("Invalid Input!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // Teachers
-
-        else if (resignation == 2){
-            Teacher teacher = new Teacher("Taimoor Sajjad", "male",
-                    35, 150000, "taimoorsajjad@ciitwah.com",
-                    "Programming Fundamentals");
-            teacher.start();
-        }
-
-        else if(resignation == 0)
-        {
-            System.out.println("See you again!");
-        }
-
-
-        else 
-        {
-            System.out.println("Invalid Input!");
-        }
+        
 
 
     }

@@ -2,6 +2,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 public class Student {
     private String studentName;
@@ -139,15 +140,15 @@ public class Student {
 
                 // Open the complains file and write to it
 
-                try (FileWriter complainWriter = new FileWriter("src/Complaints.txt")) {
+                try (PrintWriter complainWriter = new PrintWriter(new FileWriter("src/Complaints.txt"))) {
 
-                    complainWriter.write("+--------------------------------------+");
-                    complainWriter.write("\n+----- FROM: "+this.getRegNo().toUpperCase()+"-----+");
-                    complainWriter.write("\n+-----SUBJECT: STUDENT's COMPLAINT---+");
-                    complainWriter.write("\n+--------------------------------------+\n");
-                    complainWriter.write(message);
-                    complainWriter.write("\n+--------------------------------------+");
-                    complainWriter.write("\nDated: "+LocalDate.now());
+                    complainWriter.append("\n+--------------------------------------+");
+                    complainWriter.append("\n+----- FROM: "+this.getRegNo().toUpperCase()+"-----+");
+                    complainWriter.append("\n+-----SUBJECT: STUDENT's COMPLAINT---+");
+                    complainWriter.append("\n+--------------------------------------+\n");
+                    complainWriter.append(message);
+                    complainWriter.append("\n+--------------------------------------+");
+                    complainWriter.append("\nDated: "+LocalDate.now());
                     complainWriter.close();
                     System.out.println("\nComplain was sent succesfully to the authorities.");
                     try {
