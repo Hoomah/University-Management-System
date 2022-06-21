@@ -82,6 +82,9 @@ public class Student {
     
         while(true) {
 
+
+
+
             Main.clearScreen();
             System.out.println("+------------------------------------------+");
             System.out.println("+-----ENTER A NUMBER TO PERFORM A TASK-----+");
@@ -93,9 +96,10 @@ public class Student {
             System.out.println("0. Quit");
 
             Scanner input = new Scanner(System.in);
+            input.hasNextLine();
             System.out.print(">>> ");
-            int command = input.nextInt();
-            
+            byte command;
+            command = input.nextByte();
             Main.clearScreen();
 
             if(command == 1){
@@ -167,9 +171,6 @@ public class Student {
                 System.out.println("See you later.");
                 break;
             }
-
-            
-            input.close();
 
         }
     }
